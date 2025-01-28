@@ -1,12 +1,24 @@
+# Créer un pont réseau nommé "br0"
 ip link add br0 type bridge
+# Activer le pont réseau "br0"
 ip link set dev br0 up
 
+# Assigner une adresse IP à l'interface eth0
 ip addr add 10.1.1.1/24 dev eth0
 
+# Créer une interface VXLAN nommée "vxlan10"
 ip link add name vxlan10 type vxlan id 10 dev eth0 group 239.1.1.1 dstport 4789
+# - id 10 : Identifiant unique pour le VXLAN
+# - dev eth0 : Utiliser eth0 pour transporter le VXLAN
+# - group 239.1.1.1 : Adresse multicast pour la communication entre les pairs
+# - dstport 4789 : Port de destination pour le protocole VXLAN (par défaut)
+
+# Assigner une adresse IP à l'interface "vxlan10"
 ip addr add 20.1.1.1/24 dev vxlan10
+# Activer l'interface "vxlan10"
 ip link set dev vxlan10 up
 
+# Ajouter l'interface "eth1" au pont réseau "br0"
 brctl addif br0 eth1
+# Ajouter l'interface "vxlan10" au pont réseau "br0"
 brctl addif br0 vxlan10
-
