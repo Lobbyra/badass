@@ -5,17 +5,26 @@ ip link set dev vxlan10 up
 brctl addif br0 vxlan10
 brctl addif br0 eth1
 
+# Configuration du nom d'hôte
 hostname p3-jecaudal-router-1
+
+# Désactivation du routage IPv6
 no ipv6 forwarding
+
+# Configuration de l'interface Ethernet eth0
 !
 interface eth0
     ip address 10.1.1.2/30
     ip ospf area 0
 !
+
+# Configuration de l'interface loopback (lo)
 interface lo
     ip address 1.1.1.2/32
     ip ospf area 0
 !
+
+# Configuration du protocole BGP (Border Gateway Protocol)
 router bgp 1
     neighbor 1.1.1.1 remote-as 1
     neighbor 1.1.1.1 update-source lo
@@ -25,5 +34,8 @@ router bgp 1
         advertise-all-vni
     exit-address-family
 !
+
+# Configuration du protocole OSPF (Open Shortest Path First)
 router ospf
 !
+
