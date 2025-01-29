@@ -1,4 +1,4 @@
-FROM quay.io/frrouting/frr:10.2.1
+FROM quay.io/frrouting/frr:8.4.0
 
 COPY ./daemons.conf /etc/frr/daemons
 

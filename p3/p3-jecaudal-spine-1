@@ -1,3 +1,14 @@
+
+
+
+vtysh
+
+
+
+conf t
+
+
+
 hostname p3-jecaudal-spine-1
 no ipv6 forwarding
 !
